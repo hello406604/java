@@ -18,7 +18,7 @@ public class MyBatis {
 		SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		User user = new User();
-		user.setAddress("ºÓÄÏ");
+		user.setAddress("ç„¦ä½œ");
 		user.setUserName("hello");
 		user.setDeptId(3);
 		sqlSession.insert("com.kaishengit.mapper.UserMapper.save", user);
