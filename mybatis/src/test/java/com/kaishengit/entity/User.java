@@ -1,10 +1,24 @@
 package com.kaishengit.entity;
 
-public class User {
+import java.io.Serializable;
 
+public class User implements Serializable{
+
+//   添加序列化ID   用于二级缓存时 需要设置为可序列化的
+	private static final long serialVersionUID = 4468084317486252401L;
 	private Integer id;
 	private String userName;
 	private String address;
+	private String password;
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	private Integer comId;
 
 	public Integer getId() {
@@ -41,6 +55,12 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", userName=" + userName + ", address=" + address + ", comId=" + comId + "]";
+		return "User{" +
+				"id=" + id +
+				", userName='" + userName + '\'' +
+				", address='" + address + '\'' +
+				", password='" + password + '\'' +
+				", comId=" + comId +
+				'}';
 	}
 }

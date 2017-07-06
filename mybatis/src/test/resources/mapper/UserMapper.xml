@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kaishengit.mapper.UserMapper">
+
+    <cache/>
+    <!-- 配置sql中通用的列 -->
+    <sql id="allColumns">
+        id,user_name,password,address,com_id
+    </sql>
+
+    <select id="findById" parameterType="int" resultType="User">
+        SELECT
+        <include refid="allColumns"/>
+        FROM t_user where id = #{id}
+    </select>
+
+    <select id="findByParam" resultType="User">
+        SELECT
+        <include refid="allColumns"/>
+        FROM t_user
+        <where>
+            <if test="name != null and name != ''">
+                user_name = #{name}
+            </if>
+            <if test="password != null and password != ''">
+                and password = #{password}
+            </if>
+        </where>
+    </select>
+
+    <select id="findByList" resultType="User" parameterType="list">
+        SELECT
+        <include refid="allColumns"/>
+
+    </select>
+</mapper>
