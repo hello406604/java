@@ -2,14 +2,17 @@
 <!DOCTYPE configuration
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
 <configuration>
 	<settings>
-		<!-- 开启数据库列下划线风格和Java驼峰风格的映射 -->
 		<setting name="mapUnderscoreToCamelCase" value="true"/>
 	</settings>
+
+	<!-- 注册别名 -->	
 	<typeAliases>
-		<typeAlias type="com.kaishengit.entity.User" alias="User"/>
+		<typeAlias type="com.kaishengit.entity.User"/>
 	</typeAliases>
+	
 	<environments default="dev">
 		<environment id="dev">
 			<transactionManager type="JDBC"></transactionManager>
@@ -21,8 +24,6 @@
 			</dataSource>
 		</environment>
 	</environments>
-	
-	
 	
 	<mappers>
 		<mapper resource="mapper/UserMapper.xml"/>
