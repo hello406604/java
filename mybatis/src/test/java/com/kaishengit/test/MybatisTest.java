@@ -6,12 +6,17 @@ import com.kaishengit.util.MybatisUtil;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.Resources;
+import java.io.IOException;
+import java.io.Reader;
 import java.util.List;
 
 public class MybatisTest {
@@ -56,11 +61,32 @@ public class MybatisTest {
 	}
 
 	@Test
-
 	public void find() {
 		List<User> userList = userMapper.find();
 		for (User user: userList) {
 			System.out.println(user);
+		}
+	}
+
+	@Test
+	public void save() {
+		try {
+			Reader reader = org.apache.ibatis.io.Resources.getResourceAsReader("mybatis.xml");
+			SqlSessionFactoryBuilder sqlSessionFactoryBuilder = new SqlSessionFactoryBuilder();
+			SqlSessionFactory sqlSessionFactory = sqlSessionFactoryBuilder.build(reader);
+			SqlSession sqlSession = sqlSessionFactory.openSession();
+			UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+			User user = new User();
+			user.setAddress("河南");
+			user.setComId(3);
+			user.setUserName("zis");
+			user.setPassword("123123");
+			userMapper.save(user);
+			sqlSession.commit();
+			sqlSession.close();
+			System.out.println(user.getId());
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 }
