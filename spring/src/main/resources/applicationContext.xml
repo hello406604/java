@@ -1,7 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+        <!--<bean id="userDao" class="com.kaishengit.dao.UserDao" init-method="init" destroy-method="destory1" lazy-init="true"></bean>
+        <alias name="userDao" alias="user"/>-->
+
+    <bean id="userDao" class="com.kaishengit.dao.UserDao"/>
+    <!--<bean id="userService" class="com.kaishengit.service.UserService">-->
+        <!--<property name="userDao" ref="userDao"></property>-->
+    <!--</bean>-->
+    <!--<bean id="userService" class="com.kaishengit.service.UserService">-->
+        <!--&lt;!&ndash;<constructor-arg name="userDao" ref="userDao"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;<constructor-arg type="com.kaishengit.dao.UserDao" ref="userDao"/>&ndash;&gt;-->
+        <!--<constructor-arg index="0" ref="userDao"/>-->
+    <!--</bean>-->
+    <!--<bean id="userService" class="com.kaishengit.service.UserService" p:userDao-ref="userDao"></bean>-->
+
+    <bean id="userService" class="com.kaishengit.service.UserService" autowire="byType"></bean>
+
+    <bean id="demoDao" class="com.kaishengit.dao.DemoDao">
+        <property name="name" value="bulage"/>
+        <property name="score" value="1234.13"/>
+        <property name="nameList">
+            <list>
+                <value>abi</value>
+                <value>acvy</value>
+            </list>
+        </property>
+        <property name="userDaoSet">
+            <set>
+                <ref bean="userDao"/>
+            </set>
+        </property>
+        <property name="properties">
+            <props>
+                <prop key="p1">v1</prop>
+                <prop key="p2">v2</prop>
+            </props>
+        </property>
+        <property name="mySet">
+            <map>
+                <entry key="nihao" value="12345"></entry>
+            </map>
+        </property>
+    </bean>
 
 </beans>
