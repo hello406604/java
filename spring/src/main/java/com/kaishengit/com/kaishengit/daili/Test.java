@@ -9,9 +9,7 @@ public class Test {
     public static void main(String[] args) {
         dell dell =  new dell();
         ComputerInvocationHandler computerInvocationHandler = new ComputerInvocationHandler(dell);
-
         Computer computer = (Computer) Proxy.newProxyInstance(dell.getClass().getClassLoader(),dell.getClass().getInterfaces(),computerInvocationHandler);
         computer.sale();
     }
-
 }
