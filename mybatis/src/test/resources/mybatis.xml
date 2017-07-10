@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE configuration
-  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
-  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+		PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-config.dtd">
 
 <configuration>
 	<settings>
 		<setting name="mapUnderscoreToCamelCase" value="true"/>
 	</settings>
 
-	<!-- 注册别名 -->	
+	<!-- 注册别名 -->
 	<typeAliases>
 		<typeAlias type="com.kaishengit.entity.User"/>
 	</typeAliases>
-	
+
 	<environments default="dev">
 		<environment id="dev">
 			<transactionManager type="JDBC"></transactionManager>
@@ -24,7 +24,7 @@
 			</dataSource>
 		</environment>
 	</environments>
-	
+
 	<mappers>
 		<mapper resource="mapper/UserMapper.xml"/>
 	</mappers>

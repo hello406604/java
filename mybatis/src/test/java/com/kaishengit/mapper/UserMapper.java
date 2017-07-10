@@ -23,6 +23,7 @@ public interface UserMapper {
 
     User findByParam(@Param("name")String userName ,@Param("password") String password);
 
+
     User findByList(@Param("list") List<Integer> list);
 
     @Select("select id,user_name,password,address,com_id from t_user")

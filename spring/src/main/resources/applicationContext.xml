@@ -18,7 +18,7 @@
     <!--</bean>-->
     <!--<bean id="userService" class="com.kaishengit.service.UserService" p:userDao-ref="userDao"></bean>-->
 
-    <bean id="userService" class="com.kaishengit.service.UserService" autowire="byType"></bean>
+    <bean id="userService" class="com.kaishengit.service.UserService" autowire="byType" lazy-init="true"></bean>
 
     <bean id="demoDao" class="com.kaishengit.dao.DemoDao">
         <property name="name" value="bulage"/>
