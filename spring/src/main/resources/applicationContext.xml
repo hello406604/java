@@ -2,12 +2,25 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:p="http://www.springframework.org/schema/p"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop.xsd">
 
         <!--<bean id="userDao" class="com.kaishengit.dao.UserDao" init-method="init" destroy-method="destory1" lazy-init="true"></bean>
         <alias name="userDao" alias="user"/>-->
 
-    <bean id="userDao" class="com.kaishengit.dao.UserDao"/>
+    <bean id="aopAspect" class="com.kaishengit.aop.AopAspect"></bean>
+    <aop:config>
+        <aop:aspect ref="aopAspect">
+            <aop:pointcut id="pointCut" expression="execution(* com.kaishengit.aop..*.*(..))"/>
+            <aop:before method="beforeAdvice" pointcut-ref="pointCut"/>
+            <aop:after-returning method="afterAdvice" pointcut-ref="pointCut"/>
+            <aop:after-throwing method="exceptionAdvice" pointcut-ref="pointCut" throwing="e"/>
+        </aop:aspect>
+    </aop:config>
+
+    <bean id="userDao" class="com.kaishengit.aop.UserDao"/>
     <!--<bean id="userService" class="com.kaishengit.service.UserService">-->
         <!--<property name="userDao" ref="userDao"></property>-->
     <!--</bean>-->
@@ -18,7 +31,7 @@
     <!--</bean>-->
     <!--<bean id="userService" class="com.kaishengit.service.UserService" p:userDao-ref="userDao"></bean>-->
 
-    <bean id="userService" class="com.kaishengit.service.UserService" autowire="byType" lazy-init="true"></bean>
+    <bean id="userService" class="com.kaishengit.aop.UserService" autowire="byType"></bean>
 
     <bean id="demoDao" class="com.kaishengit.dao.DemoDao">
         <property name="name" value="bulage"/>
@@ -28,11 +41,6 @@
                 <value>abi</value>
                 <value>acvy</value>
             </list>
-        </property>
-        <property name="userDaoSet">
-            <set>
-                <ref bean="userDao"/>
-            </set>
         </property>
         <property name="properties">
             <props>
