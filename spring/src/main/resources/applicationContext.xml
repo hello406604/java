@@ -1,58 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:p="http://www.springframework.org/schema/p"
-       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-       http://www.springframework.org/schema/aop
-       http://www.springframework.org/schema/aop/spring-aop.xsd">
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
-        <!--<bean id="userDao" class="com.kaishengit.dao.UserDao" init-method="init" destroy-method="destory1" lazy-init="true"></bean>
-        <alias name="userDao" alias="user"/>-->
+    <!--开启自动扫描-->
+    <context:component-scan base-package="com.kaishengit"/>
 
-    <bean id="aopAspect" class="com.kaishengit.aop.AopAspect"></bean>
-    <aop:config>
-        <aop:aspect ref="aopAspect">
-            <aop:pointcut id="pointCut" expression="execution(* com.kaishengit.aop..*.*(..))"/>
-            <aop:before method="beforeAdvice" pointcut-ref="pointCut"/>
-            <aop:after-returning method="afterAdvice" pointcut-ref="pointCut"/>
-            <aop:after-throwing method="exceptionAdvice" pointcut-ref="pointCut" throwing="e"/>
-        </aop:aspect>
-    </aop:config>
+    <!--读取properties配置文件-->
+    <context:property-placeholder location="classpath:config.properties"/>
 
-    <bean id="userDao" class="com.kaishengit.aop.UserDao"/>
-    <!--<bean id="userService" class="com.kaishengit.service.UserService">-->
-        <!--<property name="userDao" ref="userDao"></property>-->
-    <!--</bean>-->
-    <!--<bean id="userService" class="com.kaishengit.service.UserService">-->
-        <!--&lt;!&ndash;<constructor-arg name="userDao" ref="userDao"/>&ndash;&gt;-->
-        <!--&lt;!&ndash;<constructor-arg type="com.kaishengit.dao.UserDao" ref="userDao"/>&ndash;&gt;-->
-        <!--<constructor-arg index="0" ref="userDao"/>-->
-    <!--</bean>-->
-    <!--<bean id="userService" class="com.kaishengit.service.UserService" p:userDao-ref="userDao"></bean>-->
-
-    <bean id="userService" class="com.kaishengit.aop.UserService" autowire="byType"></bean>
-
-    <bean id="demoDao" class="com.kaishengit.dao.DemoDao">
-        <property name="name" value="bulage"/>
-        <property name="score" value="1234.13"/>
-        <property name="nameList">
-            <list>
-                <value>abi</value>
-                <value>acvy</value>
-            </list>
-        </property>
-        <property name="properties">
-            <props>
-                <prop key="p1">v1</prop>
-                <prop key="p2">v2</prop>
-            </props>
-        </property>
-        <property name="mySet">
-            <map>
-                <entry key="nihao" value="12345"></entry>
-            </map>
-        </property>
+    <!--添加数据库连接池的配置DBCP2-->
+    <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="${jdbc.driver}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
     </bean>
+
+    <!--配置JDBCTemplate-->
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <!--配置JDBC事务管理器-->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <!--开启基于注解的事务管理-->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
 
 </beans>
