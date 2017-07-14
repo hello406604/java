@@ -1,6 +1,7 @@
 package com.kaishengit.service;
 
 import com.github.pagehelper.PageInfo;
+import com.kaishengit.Application;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,10 +14,10 @@ import com.kaishengit.entity.User;
 import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations="classpath:applicationContext.xml")
+@ContextConfiguration(classes = Application.class)
 public class UserServiceTest {
 	@Autowired
-	UserService userService;
+	private UserService userService;
 	@Test
 	public void save() {
 		User user = new User();

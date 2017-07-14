@@ -7,7 +7,7 @@ import com.kaishengit.entity.User;
 
 import java.util.List;
 
-@Repository
+
 public interface UserMapper {
 	void save(User user);
 
