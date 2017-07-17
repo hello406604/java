@@ -38,7 +38,7 @@ public class UserController {
         return modelAndView;
     }
 
-    @GetMapping( value = "/validate/{userName}" )
+    @GetMapping(value = "/validate/${userName}")
     @ResponseBody
     public String validateUser(@PathVariable String userName) {
         if ("tom".equals(userName)) {
