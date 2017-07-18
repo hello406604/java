@@ -64,10 +64,17 @@ public class AccountController {
         return zTreeNodes;
     }
 
-    @PostMapping("/dapt/new")
+    @PostMapping("/dept/new")
     @ResponseBody
     public AjaxResult addDept(Dept dept) {
         deptService.addDept(dept);
+        return AjaxResult.success();
+    }
+
+    @PostMapping("/new")
+    @ResponseBody
+    public AjaxResult savaAccount(Account account, Integer[] deptId) {
+        accountService.saveAccount(account,deptId);
         return AjaxResult.success();
     }
 }

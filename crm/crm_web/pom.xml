@@ -40,8 +40,14 @@
 
         <dependency>
             <groupId>com.kaishengit.crm</groupId>
+            <artifactId>crm_service</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.kaishengit.crm</groupId>
             <artifactId>crm_service_impl</artifactId>
         </dependency>
+
         <dependency>
             <groupId>com.kaishengit.crm</groupId>
             <artifactId>common</artifactId>
