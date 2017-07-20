@@ -21,4 +21,6 @@ public interface AccountDeptMapper {
     int updateByExampleSelective(@Param("record") AccountDeptKey record, @Param("example") AccountDeptExample example);
 
     int updateByExample(@Param("record") AccountDeptKey record, @Param("example") AccountDeptExample example);
+
+    void delById(Integer id);
 }

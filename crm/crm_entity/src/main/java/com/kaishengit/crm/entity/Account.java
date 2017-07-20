@@ -2,6 +2,7 @@ package com.kaishengit.crm.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author 
@@ -28,6 +29,11 @@ public class Account implements Serializable {
      * 最后修改时间
      */
     private Date updateTime;
+
+    /**
+     * 用户所属的部门集合
+     */
+    private List<Dept> deptList;
 
     /**
      * 手机号码
@@ -82,5 +88,13 @@ public class Account implements Serializable {
 
     public void setMobile(String mobile) {
         this.mobile = mobile;
+    }
+
+    public List<Dept> getDeptList() {
+        return deptList;
+    }
+
+    public void setDeptList(List<Dept> deptList) {
+        this.deptList = deptList;
     }
 }

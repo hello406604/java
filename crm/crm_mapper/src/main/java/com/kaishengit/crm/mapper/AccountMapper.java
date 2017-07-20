@@ -27,4 +27,14 @@ public interface AccountMapper {
     int updateByPrimaryKeySelective(Account record);
 
     int updateByPrimaryKey(Account record);
+
+    List<Account> findAllAccountByDeptName(@Param("deptId")Integer id);
+
+    Long countByDeptId(@Param("id")Integer id);
+
+    List<Account> findAllAccountByDeptId(@Param("deptId")Integer id);
+
+    int deleteById(Integer id);
+
+    Account findAccountByMobile(@Param("mobile") String mobile);
 }

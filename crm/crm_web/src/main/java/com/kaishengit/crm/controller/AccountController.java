@@ -8,16 +8,18 @@ import com.kaishengit.crm.entity.Dept;
 import com.kaishengit.crm.service.AccountService;
 import com.kaishengit.crm.service.DeptService;
 import com.kaishengit.dto.AjaxResult;
+import com.kaishengit.dto.DataTableResult;
 import com.kaishengit.dto.ZTreeNode;
+import com.kaishengit.exception.ServiceException;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Nullable;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -38,7 +40,7 @@ public class AccountController {
 //        return accountService.findAllAccount();
 //    }
     @GetMapping
-    public String acc() {
+    public String acc(Model model, @RequestParam(required = false,defaultValue = "2") Integer deptId) {
         return "manage/accounts";
     }
 
@@ -77,4 +79,49 @@ public class AccountController {
         accountService.saveAccount(account,deptId);
         return AjaxResult.success();
     }
+
+    @GetMapping("/load.json")
+    @ResponseBody
+    public DataTableResult<Account> loadAccountData(HttpServletRequest request) {
+        String draw = request.getParameter("draw");
+        String deptId = request.getParameter("deptId");
+        Integer id = null;
+        if(StringUtils.isNoneEmpty(deptId)) {
+            id = Integer.valueOf(deptId);
+        }
+        //获取account的总数
+        Long total = accountService.countAll();
+        //获取account过滤后的数量
+        Long  filtedTotal = accountService.countByDeptId(id);
+        //当前页的数据
+        List<Account> accountList = accountService.findByDeptId(id);
+
+        return new DataTableResult<>(draw,total,filtedTotal,accountList);
+    }
+
+    @PostMapping("/del/{id:\\d+}")
+    @ResponseBody
+    public AjaxResult delById (@PathVariable Integer id){
+        accountService.delById(id);
+        return AjaxResult.success();
+    }
+
+    @GetMapping("/profile")
+    public String profile() {
+        return "manage/profile";
+    }
+
+    @PostMapping("/profile")
+    @ResponseBody
+    public AjaxResult profile(String oldPassword, String password , HttpSession httpSession){
+        Account account = (Account) httpSession.getAttribute("curr_user");
+        try {
+            accountService.changePassword(oldPassword, password, account);
+            httpSession.invalidate();
+            return AjaxResult.success();
+        } catch (ServiceException e) {
+            return AjaxResult.error(e.getMessage());
+        }
+    }
+
 }

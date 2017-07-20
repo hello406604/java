@@ -17,7 +17,7 @@
         <!-- Main content -->
         <section class="content">
 
-            <h3>首页</h3>
+           <h3>首页</h3>
 
         </section>
         <!-- /.content -->

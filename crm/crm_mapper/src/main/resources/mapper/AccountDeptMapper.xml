@@ -91,7 +91,11 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.kaishengit.crm.entity.AccountDeptKey">
+    <delete id="delById">
+      delete from account_dept
+      WHERE account_id = #{id}
+    </delete>
+    <insert id="insert" parameterType="com.kaishengit.crm.entity.AccountDeptKey">
     insert into account_dept (dept_id, account_id)
     values (#{deptId,jdbcType=INTEGER}, #{accountId,jdbcType=INTEGER})
   </insert>

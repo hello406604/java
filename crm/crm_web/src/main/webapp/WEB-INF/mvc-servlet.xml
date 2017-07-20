@@ -8,8 +8,11 @@
     <!--自动扫描-->
     <context:component-scan base-package="com.kaishengit.crm.controller"/>
 
+    <!-- 开启基于注解的controller -->
     <mvc:annotation-driven/>
 
+    <!-- 静态文件直接过中央控制器 -->
+    <!--<mvc:resources mapping="/static/**" location="/static/"/>-->
     <mvc:default-servlet-handler/>
 
     <bean id="viewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
@@ -17,4 +20,11 @@
         <property name="prefix" value="/WEB-INF/views/"/>
         <property name="suffix" value=".jsp"/>
     </bean>
+
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <bean class="com.kaishengit.crm.controller.interceptor.LoginInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
 </beans>
