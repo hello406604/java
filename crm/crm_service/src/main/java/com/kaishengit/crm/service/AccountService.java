@@ -26,4 +26,6 @@ public interface AccountService {
     Account findAccountByMobile(String mobile,String password);
 
     void changePassword(String oldPassword, String password, Account account);
+
+    Account findAccountById(Integer accountId);
 }

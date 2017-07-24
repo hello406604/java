@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kaishengit.crm.mapper.CustomerMapper">
+
+    <insert id="save" parameterType="Customer">
+        INSERT INTO customer
+                  (cust_name,mobile,sex,job_title,address,trade,source,`level`,account_id,reminder,create_time,update_time,lastContact_time,mark)
+        VALUES (#{custName},#{mobile},#{sex},#{jobTitle},#{address},#{trade},#{source},#{level},#{accountId},#{reminder},#{createTime},
+        #{updateTime},#{lastContactTime},#{mark})
+    </insert>
+
+    <update id="update" parameterType="Customer">
+        UPDATE customer
+        SET cust_name=#{custName},mobile=#{mobile},sex=#{sex},job_title=#{jobTitle},address=#{address},trade=#{trade},source=#{source},level=#{level}
+        ,account_id=#{accountId},reminder=#{reminder},create_time=#{createTime},update_time=#{updateTime},
+        lastContact_time=#{lastContactTime},mark=#{mark}
+        where id = #{id}
+    </update>
+    <delete id="delById">
+        DELETE FROM customer WHERE id = #{id}
+    </delete>
+    <select id="findByParam" resultType="com.kaishengit.crm.entity.Customer">
+        SELECT * FROM customer
+        WHERE
+        <choose>
+            <when test="accId != null">
+                account_id = #{accId}
+            </when>
+            <otherwise>
+                account_id is null
+            </otherwise>
+        </choose>
+        <if test="keyword != null and keyword != ''">
+            and
+            (cust_name like concat('%',#{keyword},'%') or mobile like concat('%',#{keyword},'%'))
+        </if>
+        order by update_time desc , id desc
+    </select>
+    <select id="findById" resultType="com.kaishengit.crm.entity.Customer">
+        SELECT * FROM customer
+        WHERE id = #{id}
+    </select>
+    <select id="findByAccountId" resultType="com.kaishengit.crm.entity.Customer">
+        SELECT * FROM customer
+            WHERE
+        <choose>
+             <when test="accountId != null">
+                account_id = #{accountId}
+               </when>
+            <otherwise>
+                account_id is null
+            </otherwise>
+        </choose>
+    </select>
+
+
+</mapper>

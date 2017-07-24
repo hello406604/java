@@ -106,4 +106,9 @@ public class AccountServiceImpl implements AccountService {
             throw  new ServiceException("原始密码输入错误,请重新输入");
         }
     }
+
+    @Override
+    public Account findAccountById(Integer accountId) {
+        return accountMapper.selectByPrimaryKey(accountId);
+    }
 }

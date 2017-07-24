@@ -50,7 +50,7 @@
                                     <th>手机</th>
                                     <th>#</th>
                                 </tr>
-                                </thead>
+                                </thead>e
                                 <tbody>
                                     <c:forEach items="${accounts}" var="acc">
                                         <tr>
