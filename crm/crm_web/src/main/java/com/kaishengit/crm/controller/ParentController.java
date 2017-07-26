@@ -7,7 +7,7 @@ import javax.servlet.http.HttpSession;
 
 @Controller
 public class ParentController {
-    public Account getAccountInSessino(HttpSession session) {
+    public Account getAccountInSession(HttpSession session) {
         return (Account)session.getAttribute("curr_user");
     }
 }

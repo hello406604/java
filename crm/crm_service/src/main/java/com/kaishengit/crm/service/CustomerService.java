@@ -49,4 +49,6 @@ public interface CustomerService {
     void occupyCustomer(Customer customer, Account account);
 
     void exportPublicCustomerToExcel(Account account, OutputStream outputStream);
+
+    List<Customer> finByAccount(Integer id);
 }

@@ -5,7 +5,8 @@
     <insert id="save" parameterType="Customer">
         INSERT INTO customer
                   (cust_name,mobile,sex,job_title,address,trade,source,`level`,account_id,reminder,create_time,update_time,lastContact_time,mark)
-        VALUES (#{custName},#{mobile},#{sex},#{jobTitle},#{address},#{trade},#{source},#{level},#{accountId},#{reminder},#{createTime},
+        VALUES (#{custName},#{mobile},#{sex},#{jobTitle},#{address},#{trade},
+        #{source},#{level},#{accountId},#{reminder},#{createTime},
         #{updateTime},#{lastContactTime},#{mark})
     </insert>
 

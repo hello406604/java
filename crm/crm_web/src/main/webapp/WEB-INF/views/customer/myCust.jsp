@@ -115,19 +115,19 @@
 <%@include file="../base/base-js.jsp"%>
 <script src="/static/plugins/page/jquery.twbsPagination.min.js"></script>
 <script>
-    $(function () {
-        <c:if test="${pageInfo.pages > 1}" >
-        //分页
-        $('#pagination-demo').twbsPagination({
-            totalPages: ${pageInfo.pages},
-            visiblePages: 7,
-            first:'首页',
-            last:'末页',
-            prev:'上一页',
-            next:'下一页',
-            href:"?p={{number}}&keyword=${keyword}";
-        });
-        </c:if>
+        $(function () {
+            <c:if test="${pageInfo.pages > 1}">
+            //分页
+            $('#pagination-demo').twbsPagination({
+                totalPages: ${pageInfo.pages},
+                visiblePages: 7,
+                first:'首页',
+                last:'末页',
+                prev:'上一页',
+                next:'下一页',
+                href:"?p={{number}}&keyword=${keyword}"
+            });
+            </c:if>
 
         $(".custrow").click(function () {
             var id = $(this).attr("rel");

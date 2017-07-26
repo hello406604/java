@@ -104,6 +104,11 @@ public class CustomerServiceImpl implements CustomerService {
         createWorkBook(customerList,outputStream);
     }
 
+    @Override
+    public List<Customer> finByAccount(Integer id) {
+        return customerMapper.findByAccountId(id);
+    }
+
     private void createWorkBook(List<Customer> customerList, OutputStream outputStream){
         //创建工作表
         Workbook workbook = new HSSFWorkbook();

@@ -107,7 +107,7 @@ public class CustomerController extends ParentController{
      */
     @GetMapping("/my/{id:\\d+}")
     public String myCust(@PathVariable Integer id, Model model,HttpSession session) {
-        Account account = getAccountInSessino(session);
+        Account account = getAccountInSession(session);
         Customer customer = customerService.findById(id);
         if (customer == null) {
             throw new NotFoundException();
@@ -130,7 +130,7 @@ public class CustomerController extends ParentController{
      */
     @GetMapping("/my/edit/{id:\\d+}")
     public String editById(@PathVariable Integer id, Model model, HttpSession session) {
-        Account account = getAccountInSessino(session);
+        Account account = getAccountInSession(session);
         Customer customer = customerService.findById(id);
         List<String> tradeList = customerService.findAllTrade();
         List<String> sourceList = customerService.findAllSource();
@@ -154,7 +154,7 @@ public class CustomerController extends ParentController{
      */
     @PostMapping("/my/edit/{id:\\d+}")
     public String editById(Customer customer, HttpSession session) {
-        Account account = getAccountInSessino(session);
+        Account account = getAccountInSession(session);
         if (!account.getId().equals(customer.getAccountId())) {
             throw new ForbiddenException();
         }
@@ -171,7 +171,7 @@ public class CustomerController extends ParentController{
      */
     @GetMapping("/my/del/{id:\\d+}")
     public String delById(@PathVariable Integer id, HttpSession session, RedirectAttributes redirectAttributes) {
-        Account account = getAccountInSessino(session);
+        Account account = getAccountInSession(session);
         Customer customer = customerService.findById(id);
         if (customer == null) {
             throw new NotFoundException();
@@ -193,7 +193,7 @@ public class CustomerController extends ParentController{
      */
     @GetMapping("/my/share/{id:\\d+}")
     public String shareById(@PathVariable Integer id, HttpSession session , RedirectAttributes redirectAttributes) {
-        Account account = getAccountInSessino(session);
+        Account account = getAccountInSession(session);
         Customer customer = customerService.findById(id);
         if (customer == null) {
             throw new NotFoundException();
@@ -220,7 +220,7 @@ public class CustomerController extends ParentController{
                                @PathVariable Integer accountId,
                                HttpSession session , RedirectAttributes redirectAttributes) {
         Customer customer = customerService.findById(id);
-        Account account = getAccountInSessino(session);
+        Account account = getAccountInSession(session);
         if (customer == null) {
             throw new NotFoundException();
         }
@@ -349,7 +349,7 @@ public class CustomerController extends ParentController{
      */
     @GetMapping("/public/share/{id:\\d+}")
     public String occupyPublicById(@PathVariable Integer id, HttpSession session , RedirectAttributes redirectAttributes) {
-        Account account = getAccountInSessino(session);
+        Account account = getAccountInSession(session);
         Customer customer = customerService.findById(id);
         if (customer == null) {
             throw new NotFoundException();

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kaishengit.crm.mapper.RecordSalesMapper">
+
+    <insert id="insert">
+        insert into record_salesrecord (sales_id, content,create_time) values (#{salesId},#{content},#{createTime});
+    </insert>
+
+</mapper>

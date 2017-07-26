@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kaishengit.crm.mapper.SalesMapper">
+    <insert id="saveSales" useGeneratedKeys="true" keyProperty="id">
+        INSERT into salesrecord (sales_name,account_id,customer_id,sales_value,current_progress,create_time,last_time)
+        VALUES (#{salesName},#{accountId},#{customer.id},#{salesValue},#{currentProgress},#{createTime},#{lastTime})
+    </insert>
+    <update id="update">
+      UPDATE salesrecord SET last_time = #{lastTime}
+      where
+      id = #{id}
+    </update>
+
+    <select id="showAllByAccId" resultMap="saleChanceLoadCustomer">
+        SELECT salesrecord.*, cust.id as customerId,
+        cust.cust_name,cust.mobile,sex,cust.job_title,cust.address,cust.trade,cust.source,cust.`level`,
+        cust.account_id as cust_account_id,cust.reminder,cust.create_time as cust_create_time,cust.update_time,cust.lastContact_time,cust.mark
+        FROM salesrecord
+        LEFT JOIN customer as cust
+        ON salesrecord.customer_id = cust.id
+        WHERE
+          salesrecord.account_id = #{accountId}
+    </select>
+    <select id="findById" resultMap="saleChanceLoadCustomer">
+        SELECT salesrecord.*, cust.id as customerId,
+        cust.cust_name,cust.mobile,sex,cust.job_title,cust.address,cust.trade,cust.source,cust.`level`,
+        cust.account_id as cust_account_id,cust.reminder,cust.create_time as cust_create_time,cust.update_time,cust.lastContact_time,cust.mark
+        FROM salesrecord
+        LEFT JOIN customer as cust
+        ON salesrecord.customer_id = cust.id
+        WHERE
+          salesrecord.id = #{id}
+    </select>
+    <resultMap id="saleChanceLoadCustomer" type="SalesRecord">
+
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="sales_name" jdbcType="VARCHAR" property="salesName"/>
+        <result column="customer_id" jdbcType="INTEGER" property="custId"/>
+        <result column="sales_value" jdbcType="DOUBLE" property="salesValue"/>
+        <result column="account_id" jdbcType="INTEGER" property="accountId"/>
+        <result column="create_time"  property="createTime"/>
+        <result column="current_progress" property="currentProgress"/>
+        <result column="last_time" property="lastTime"/>
+        <association property="customer" javaType="Customer">
+            <id column="customerId" jdbcType="INTEGER" property="id"/>
+            <result column="cust_name" jdbcType="VARCHAR" property="custName"/>
+            <result column="job_title" jdbcType="VARCHAR" property="jobTitle"/>
+            <result column="mobile" jdbcType="VARCHAR" property="mobile"/>
+            <result column="address" jdbcType="VARCHAR" property="address"/>
+            <result column="trade" jdbcType="VARCHAR" property="trade"/>
+            <result column="source" jdbcType="VARCHAR" property="source"/>
+            <result column="level" jdbcType="VARCHAR" property="level"/>
+            <result column="mark" jdbcType="VARCHAR" property="mark"/>
+            <result column="cust_account_id" jdbcType="INTEGER" property="accountId"/>
+            <result column="lastContact_time"  property="lastContactTime"/>
+            <result column="cust_create_time" property="createTime"/>
+            <result column="update_time" property="updateTime"/>
+            <result column="reminder" jdbcType="VARCHAR" property="reminder"/>
+            <result column="sex" jdbcType="VARCHAR" property="sex"/>
+        </association>
+    </resultMap>
+</mapper>
