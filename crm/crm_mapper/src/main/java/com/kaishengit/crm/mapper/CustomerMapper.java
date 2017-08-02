@@ -18,4 +18,7 @@ public interface CustomerMapper {
     void delById(@Param("id") Integer id);
 
     List<Customer> findByAccountId(@Param("accountId") Integer accountId);
+
+    List<Map<String,Object>> findByLevelCount();
+
 }

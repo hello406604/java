@@ -51,4 +51,6 @@ public interface CustomerService {
     void exportPublicCustomerToExcel(Account account, OutputStream outputStream);
 
     List<Customer> finByAccount(Integer id);
+
+    List<Map<String,Object>> findCustomerLevelCount();
 }

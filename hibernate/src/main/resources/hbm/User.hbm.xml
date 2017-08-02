@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.kaishengit.pojo">
+    <class name="User" table="user">
+        <id name="id">
+            <generator class="native"/>
+        </id>
+        <property name="name"/>
+
+        <set name="addressSet" cascade="delete" inverse="true">
+            <key column="user_id"></key>
+            <one-to-many class="Address"/>
+        </set>
+    </class>
+</hibernate-mapping>

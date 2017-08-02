@@ -4,7 +4,7 @@
 <!-- 顶部导航栏部分 -->
 <header class="main-header">
     <!-- Logo -->
-    <a href="index2.html" class="logo">
+    <a href="/home" class="logo">
         <!-- mini logo for sidebar mini 50x50 pixels -->
         <span class="logo-mini"><b>CRM</b></span>
         <!-- logo for regular state and mobile devices -->
@@ -119,7 +119,7 @@
                 </ul>
             </li>
             <!-- 统计报表 -->
-            <li class="treeview">
+            <li class="${param.active.startsWith('charts') ? 'active' : ''}  treeview">
                 <a href="#">
                     <i class="fa fa-pie-chart"></i> <span>统计报表</span>
                     <span class="pull-right-container">
@@ -127,8 +127,8 @@
             </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="../../index.html"><i class="fa fa-circle-o"></i> 待办列表</a></li>
-                    <li><a href="../../index2.html"><i class="fa fa-circle-o"></i> 逾期事项</a></li>
+                    <li class="${param.active == 'charts/static' ? 'active' : ''}"><a href="/charts/static"><i class="fa fa-circle-o"></i> 静态展示</a></li>
+                    <li><a href="/charts/dynamic"><i class="fa fa-circle-o"></i> 动态展示</a></li>
                 </ul>
             </li>
 

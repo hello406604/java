@@ -53,6 +53,9 @@
             </otherwise>
         </choose>
     </select>
+    <select id="findByLevelCount" resultType="java.util.Map">
+        SELECT level,count(*) as num FROM `customer` GROUP BY `level`
+    </select>
 
 
 </mapper>

@@ -109,6 +109,11 @@ public class CustomerServiceImpl implements CustomerService {
         return customerMapper.findByAccountId(id);
     }
 
+    @Override
+    public List<Map<String, Object>> findCustomerLevelCount() {
+        return customerMapper.findByLevelCount();
+    }
+
     private void createWorkBook(List<Customer> customerList, OutputStream outputStream){
         //创建工作表
         Workbook workbook = new HSSFWorkbook();

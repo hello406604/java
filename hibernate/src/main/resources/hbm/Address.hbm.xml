@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.kaishengit.pojo">
+    <class name="Address" table="address">
+        <id name="id">
+            <generator class="native"/>
+        </id>
+        <property name="cityName" column="city_name"/>
+        <!--
+            cascade=delete 级联删除
+            fetch=join  多表联查
+            lazy=false  取消懒加载
+        -->
+        <many-to-one name="user" class="User" column="user_id" fetch="join"/>
+    </class>
+</hibernate-mapping>
